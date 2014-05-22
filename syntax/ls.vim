@@ -14,8 +14,17 @@ syntax sync minlines=100
 
 setlocal iskeyword=48-57,A-Z,$,a-z,_,-
 
-syntax match lsIdentifier /[$A-Za-z_]\k*\(-[a-zA-Z]\+\)*/
-highlight default link lsIdentifier Identifier
+syntax match lsIdentifier /[A-Za-z_]\k*\(-[a-zA-Z]\+\)*/
+highlight default link lsIdentifier Normal
+
+syntax match lsLocalIdentifier /@\k\+/
+highlight default link lsLocalIdentifier Identifier
+
+syn match lsType /\<\u\w*\>/ display
+highlight default link lsType Type
+
+" syntax match lsType /\s\([A-Z]\k\+\.\?\)\+/
+" highlight default link lsType Type
 
 " These are 'matches' rather than 'keywords' because vim's highlighting priority
 " for keywords (the highest) causes them to be wrongly highlighted when used as
@@ -59,7 +68,7 @@ syntax match lsFloat
 \ /\<\d[0-9_]*\%(\.\d[0-9_]*\)\?\%(e[+-]\?\d[0-9_]*\)\?\k*/
 \ contains=lsNumberComment
 highlight default link lsFloat Float
-syntax match lsNumberComment /\d\+\zs\%(e[+-]\?\d\)\@!\k*\>/ contained
+syntax match lsNumberComment /\D\+$/ contained
 highlight default link lsNumberComment Comment
 " Matches hex numbers like 0xfff, 0x000.
 syntax match lsNumber /\<0x\x\+/
